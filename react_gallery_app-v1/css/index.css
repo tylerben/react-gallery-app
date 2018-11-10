@@ -1,14 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
-
 body {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   color: #3f4850;
-}
-
-h1 {
-  font-family: 'Kaushan Script', cursive;
-  font-size: 3.5rem;
 }
 
 h2 {
@@ -26,10 +19,6 @@ a {
   text-decoration: none;
 }
 
-header {
-  border-bottom: 1px solid #DDD;
-}
-
 .search-form {
   max-width: 460px;
   display: flex;
@@ -38,32 +27,22 @@ header {
 
 .search-form button {
   outline: none;
-  background-color: transparent;
+  background-color: #438bbd;
   border: none;
   padding: 0px 15px;
+  border-radius: 0 0.35em 0.35em 0;
   cursor: pointer;
-}
-
-.search-form button:hover {
-  background-color: #FAFAFA;
-}
-
-.search-form svg {
-  fill: #cb36c0;
 }
 
 input {
   font-size: 1em;
   width: 100%;
+  background-color: #edeff0;
   padding: 10px 15px;
-  border: none;
-  border-bottom: 2px solid #cb36c0;
+  border: 3px solid #d7dbdf;
+  border-right: none;
+  border-radius: 0.35em 0 0 0.35em;
   outline: none;
-}
-
-input:focus {
-  background-color: #F1F1F1;
-  transition: 750ms;
 }
 
 .main-nav li {
@@ -80,7 +59,8 @@ input:focus {
 }
 
 .main-nav .active,
-.main-nav a:hover {
+.main-nav a:hover,
+.search-form button:hover {
   background-color: #275270;
 }
 
@@ -137,7 +117,7 @@ input:focus {
     display: flex;
     justify-content: center;
   }
-
+  
   .main-nav li {
     margin: 10px;
     width: 100px;
