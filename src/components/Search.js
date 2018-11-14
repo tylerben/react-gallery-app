@@ -5,7 +5,7 @@ import Gallery from './Gallery';
 
 const Search = props =>
   <div>
-    <Header handleSearch={props.handleSearch} tag={props.match.params.tag} />
+    <Header {...props} handleSearch={props.handleSearch} />
     <Gallery photos={props.photos}/>
   </div>;
 
