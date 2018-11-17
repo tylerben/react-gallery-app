@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Loading from './Loading'
+import NoSearchResults from './NoSearchResults'
 import GalleryItem from './GalleryItem'
 
 const Gallery = props => {
@@ -10,15 +12,24 @@ const Gallery = props => {
       url={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`} />;
   });
 
-  return (
-    <div className="photo-container">
-      <h2>Results</h2>
-      <ul>
-        {photos}
-        {/* <NotFound /> */}
-      </ul>
-    </div>
-  );
+  if ( props.loading ) {
+    return (
+      <Loading />
+    );
+  } else if ( photos.length === 0 ) {
+    return (
+      <NoSearchResults />
+    )
+  } else {
+    return (
+      <div className="photo-container">
+        <h2>Results</h2>
+        <ul>
+          {photos}
+        </ul>
+      </div>
+    );
+  }
 }
 
 Gallery.propTypes = {

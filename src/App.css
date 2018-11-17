@@ -12,9 +12,10 @@ h1 {
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 3em;
   margin: 52px 0 40px;
   text-transform: capitalize;
+  font-family: 'Kaushan Script', cursive;
 }
 
 ul {
@@ -28,6 +29,7 @@ a {
 
 header {
   border-bottom: 1px solid #DDD;
+  padding-bottom: 25px;
 }
 
 .search-form {
@@ -110,6 +112,15 @@ input:focus {
 }
 
 .photo-container .not-found {
+  width: 100%;
+}
+
+.not-found {
+  margin-top: 25px;
+  list-style: none;
+}
+
+.not-found-img {
   width: 100%;
 }
 

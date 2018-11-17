@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import axios from 'axios';
 import './App.css';
 import apiKey from './config.js';
 
 import Search from './components/Search';
+import NotFound from './components/NotFound';
 
 class App extends Component {
 
   state = {
     photos: [],
-    tag: 'durango%2C+silverton%2C+ouray'
+    tag: 'durango%2C+silverton%2C+ouray',
+    loading: true
   }
 
   performSearch = this.performSearch.bind(this);
 
   componentDidMount() {
+    // Grab the current url
+    // if the user has reloaded the page on a search route
+    // perform the search passing the route to the performSearch method
+    // Else if the user is on the "home" page use the search tag defined in the initial state
     let path = window.location.pathname;
     if ( this.state.photos.length === 0 && path !== "/" ) {
       let tag = path.replace("/search/", "");
@@ -25,8 +31,14 @@ class App extends Component {
     }
   }
 
-  performSearch(query) {
-    axios.get(` https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+  /**
+   * This method is used to request data from the Flickr API
+   * After the data is request, regardless if it was successful or not, the state is updated to reflect the search tag
+   * @param  {string} tag [search tag]
+   */
+  performSearch(tag) {
+    this.setState({ loading: true });
+    axios.get(` https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${tag}&per_page=24&format=json&nojsoncallback=1`)
       .then( response => {
         // handle success
         this.setState({ photos: response.data.photos.photo });
@@ -36,13 +48,16 @@ class App extends Component {
         console.error(error);
       })
       .then( response => {
-        this.setState({ tag: query });
+        this.setState({
+          tag: tag,
+          loading: false
+        });
       })
   }
 
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <div className="container app">
           <Switch>
             <Route exact
@@ -50,18 +65,21 @@ class App extends Component {
                    render={ props =>
                     <Search {...props}
                       photos={this.state.photos}
+                      loading={this.state.loading}
                       handleSearch={this.performSearch} />
                     } />
             <Route path="/search/:tag"
                    render={ props =>
                      <Search {...props}
                       photos={this.state.photos}
+                      loading={this.state.loading}
                       handleSearch={this.performSearch} />
                     } />
+            <Route component={NotFound} />
           </Switch>
           {/* <Gallery /> */}
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

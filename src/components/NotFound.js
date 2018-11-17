@@ -1,9 +1,9 @@
 import React from 'react';
+import NotFoundImage from './notfound.png';
 
 const NotFound = props =>
-  <li className="not-found">
-    <h3>No Results Found</h3>
-    <p>You search did not return any results. Please try again.</p>
-  </li>;
+  <div>
+    <img className="not-found-img" src={NotFoundImage} alt="404 Error: Page Not Found" />
+  </div>;
 
 export default NotFound;
