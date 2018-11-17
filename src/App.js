@@ -12,7 +12,8 @@ class App extends Component {
   state = {
     photos: [],
     tag: 'durango%2C+silverton%2C+ouray',
-    loading: true
+    loading: true,
+    title: 'Results for Durango, Silverton, and Ouray'
   }
 
   performSearch = this.performSearch.bind(this);
@@ -29,6 +30,15 @@ class App extends Component {
     } else {
       this.performSearch(this.state.tag);
     }
+  }
+
+  /**
+   * This method is used to replace the %20 special character with a space when displaying the search results title
+   * @param  {string} tag [search tag]
+   * @return {string}     [search tag with %20 replaced with a space]
+   */
+  parseTitle(tag) {
+    return tag.replace('%20',  ' ');
   }
 
   /**
@@ -50,7 +60,8 @@ class App extends Component {
       .then( response => {
         this.setState({
           tag: tag,
-          loading: false
+          loading: false,
+          title: `Results for ${this.parseTitle(tag)}`
         });
       })
   }
@@ -66,6 +77,7 @@ class App extends Component {
                     <Search {...props}
                       photos={this.state.photos}
                       loading={this.state.loading}
+                      title={this.state.title}
                       handleSearch={this.performSearch} />
                     } />
             <Route path="/search/:tag"
@@ -73,6 +85,7 @@ class App extends Component {
                      <Search {...props}
                       photos={this.state.photos}
                       loading={this.state.loading}
+                      title={this.state.title}
                       handleSearch={this.performSearch} />
                     } />
             <Route component={NotFound} />
